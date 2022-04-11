@@ -1,14 +1,16 @@
 #include "dog.h"
 #include <stdio.h>
 #include <stdlib.h>
+
 /**
- * init_dog - initialize a variable of type struct dog
- * @d: pointer to an element of type dog
- * @name: pointer to a char for name of dog
- * @age: age of dog
- * @owner: pointer to a char for owner of dog
- * Return: nothing
- **/
+  * init_dog - fills memory with a constant byte
+  * @d: is the pointer of the strut
+  * @name: is the name of the dog
+  * @age: is the age of the dog
+  * @owner: is the owner of the dog
+  * Return: a void pointer
+  * Tuwache kufork tu....by nixon
+  */
 void init_dog(struct dog *d, char *name, float age, char *owner)
 {
 	if (d != NULL)
@@ -18,3 +20,4 @@ void init_dog(struct dog *d, char *name, float age, char *owner)
 		d->owner = owner;
 	}
 }
+
