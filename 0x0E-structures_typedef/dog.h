@@ -1,5 +1,5 @@
-#include <stdio.h>
-#include "dog.h"
+#ifndef DOGGIE
+#define DOGGIE
 
 /**
  * main - check the code
