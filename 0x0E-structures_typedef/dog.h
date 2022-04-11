@@ -1,5 +1,5 @@
-#ifndef DOGGIE
-#define DOGGIE
+#ifndef DOG
+#define DOG
 
 /* struct dog description
 @name: First member
