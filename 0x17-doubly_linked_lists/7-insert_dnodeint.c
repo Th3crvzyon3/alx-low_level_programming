@@ -1,54 +1,48 @@
 #include "lists.h"
 
 /**
- * insert_dnodeint_at_index - inserts a new node at given index in the list
- * @head: pointer to head of the list
- * @idx: index to add at, starting from 0
- * @n: value of new node
- * Return: new node or null
- **/
-dlistint_t *insert_dnodeint_at_index(dlistint_t **head, unsigned int idx, int n)
+ * insert_dnodeint_at_index - insert a node at an index
+ * @h: head of list
+ * @idx: the index
+ * @n: the int to put into the new node
+ * Return: address of new node or NULL
+ */
+dlistint_t *insert_dnodeint_at_index(dlistint_t **h, unsigned int idx, int n)
 {
-	unsigned int count;
-	dlistint_t *tmp, *new, *tmp_prev;
+	/* declarations */
+	dlistint_t *location;
+	dlistint_t *new = malloc(sizeof(dlistint_t));
 
-	if (head == NULL && idx > 0)
-	return (NULL);
-	new = malloc(sizeof(dlistint_t));
-	if (new == NULL)
-		return (NULL);
-	new->n = n, new->prev = new->next = NULL;
-
-	if (idx == 0)
+	/* check for NULL */
+	if (!h || !new)
+		return (new ? free(new), NULL : NULL);
+	/* assign some things to new */
+	location = *h;
+	new->n = n;
+	/* if index is 0 */
+	if (!idx)
 	{
-		if (*head)
-	{
-		new->next = *head;
-		(*head)->prev = new, *head = new;
-	}
-		else
-			*head = new;
-		return (new);
-	}
-	count = 1, tmp = (*head)->next;
-	while (tmp)
-	{
-		if (idx == count)
+		new->prev = NULL;
+		new->next = location ? location : NULL;
+		if (location)
 		{
-			tmp->prev->next = new, new->prev = tmp->prev;
-			new->next = tmp, tmp->prev = new;
+			location->prev = new;
+		}
+		return (*h = new);
+	}
+	/* otherwise, move to place before index and install new node */
+	for (; location; location = location->next, idx--)
+	{
+		if (idx - 1 == 0)
+		{
+			new->prev = location;
+			new->next = location->next;
+			if (new->next)
+				new->next->prev = new;
+			location->next = new;
 			return (new);
 		}
-		count++;
-		tmp_prev = tmp;
-		tmp = tmp->next;
 	}
-	if (tmp == NULL && count == idx)
-	{
-		tmp_prev->next = new, new->prev = tmp_prev;
-		return (new);
-	}
-	free(new);
-	return (NULL);
+	/* if all else fails, free new & return NULL */
+	return (free(new), NULL);
 }
-
